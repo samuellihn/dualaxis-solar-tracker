@@ -6,13 +6,13 @@ class ServoPos:
         self.pan = int(pan)
         self.tilt = int(tilt)
 
+
     def serialize(self):
-        return bytes(f"{round(self.pan / 1.5)},{round(self.tilt/1.5)}\n", "utf8")
+        return bytes(f"{round((self.pan + 135) / 1.5)},{round((self.tilt + 135) / 1.5)}\n", "utf8")
 
     @staticmethod
     def measure():
-        return ServoPos(300, 300)
-
+        return ServoPos(140, 140)
 
 
 class PanelData:
@@ -36,3 +36,7 @@ class PanelData:
         self.panel_v, self.panel_i, self.panel_p = map(float, panel.split(","))
         self.photo_tr, self.photo_tl, self.photo_br, self.photo_bl = map(int, photo.split(","))
         self.pan, self.tilt = map(int, servo.split(","))
+        self.pan *= 1.5
+        self.tilt *= 1.5
+        self.pan -= 135
+        self.tilt -= 135

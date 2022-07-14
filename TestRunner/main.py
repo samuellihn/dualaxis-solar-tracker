@@ -23,7 +23,6 @@ def move_panel(position: ServoPos) -> None:
 
 def get_panel_data() -> Union[PanelData, None]:
     line = panelSerial.readline()
-    print(line.decode("utf8"))
     if line.startswith(b'?'):
         frame = PanelData()
         frame.deserialize(line)
@@ -35,4 +34,5 @@ while True:
     move_panel(ServoPos(pan, tilt))
 
     frame = get_panel_data()
+    print(frame.tilt, frame.pan)
     time.sleep(0.01)
