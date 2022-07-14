@@ -37,16 +37,15 @@ void loop()
         ServoPos cmd;
         cmd.recv();
 
-        tilt.write(cmd.tilt);
-        pan.write(cmd.pan);
+        if (cmd.tilt <= 180) tilt.write(cmd.tilt);
+        if (cmd.pan <= 180) pan.write(cmd.pan);
+        PanelData data;
+        readSunValues(data);
+        readServoPos(data);
+        readPanelPower(data);
+        data.transmit();
     }
     delay(10);
-
-    // PanelData data;
-    // readSunValues(data);
-    // readServoPos(data);
-    // readPanelPower(data);
-    // data.transmit();
 }
 
 void readSunValues(PanelData &data)

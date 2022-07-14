@@ -4,6 +4,7 @@ struct ServoPos
 {
     uint8_t pan;
     uint8_t tilt;
+    bool measure;
 
     void recv();
 };

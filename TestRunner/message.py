@@ -3,11 +3,16 @@ class ServoPos:
     tilt: int
 
     def __init__(self, pan, tilt):
-        self.pan = pan
-        self.tilt = tilt
+        self.pan = int(pan)
+        self.tilt = int(tilt)
 
     def serialize(self):
-        return bytes(f"{self.pan},{self.tilt}\n", "utf8")
+        return bytes(f"{round(self.pan / 1.5)},{round(self.tilt/1.5)}\n", "utf8")
+
+    @staticmethod
+    def measure():
+        return ServoPos(300, 300)
+
 
 
 class PanelData:
