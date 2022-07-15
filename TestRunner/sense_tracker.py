@@ -46,6 +46,9 @@ while True:
     move_panel(ServoPos(300, 300))
     frame = get_panel_data()
 
+    if frame is None:
+        continue
+
     # Calculate avg values
     avg_top = (frame.photo_tr + frame.photo_tl) / 2
     avg_bot = (frame.photo_br + frame.photo_bl) / 2
