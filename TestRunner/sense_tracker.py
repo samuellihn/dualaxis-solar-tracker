@@ -30,20 +30,20 @@ def get_panel_data() -> Union[PanelData, None]:
         return frame
 
 
-Y_THRESHOLD = 15
-X_THRESHOLD = 15
+Y_THRESHOLD = 30
+X_THRESHOLD = 30
 
-Y_MIN = 60
-Y_MAX = 120
-X_MIN = 60
-X_MAX = 120
+Y_MIN = -110
+Y_MAX = 110
+X_MIN = -110
+X_MAX = 110
 
-X_INCR = 1
-Y_INCR = 1
+X_INCR = 5
+Y_INCR = 5
 # Main loop
 while True:
     # Request data
-    move_panel(ServoPos(300, 300))
+    move_panel(ServoPos(150, 150))
     frame = get_panel_data()
 
     if frame is None:
@@ -62,16 +62,16 @@ while True:
 
     if y_diff > Y_THRESHOLD:
         if frame.tilt < Y_MAX:
-            move_panel(ServoPos(300, frame.tilt + Y_INCR))
+            move_panel(ServoPos(150, frame.tilt + Y_INCR))
     elif y_diff < -Y_THRESHOLD:
         if frame.tilt > Y_MIN:
-            move_panel(ServoPos(300, frame.tilt - Y_INCR))
+            move_panel(ServoPos(150, frame.tilt - Y_INCR))
 
     if x_diff > X_THRESHOLD:
         if frame.pan < X_MAX:
-            move_panel(ServoPos(frame.pan + X_INCR, 300))
+            move_panel(ServoPos(frame.pan + X_INCR, 150))
     elif x_diff < -X_THRESHOLD:
         if frame.pan > X_MIN:
-            move_panel(ServoPos(frame.pan - X_INCR, 300))
+            move_panel(ServoPos(frame.pan - X_INCR, 150))
 
     time.sleep(0.1)
