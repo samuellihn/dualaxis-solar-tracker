@@ -29,30 +29,30 @@ void setup()
     pan.attach(6);
     pan.write(90);
 }
+PanelData data;
 
+ServoPos cmd;
 void loop()
 {
     if (Serial.available())
     {
-        ServoPos cmd;
         cmd.recv();
 
         if (cmd.tilt <= 180) tilt.write(cmd.tilt);
         if (cmd.pan <= 180) pan.write(cmd.pan);
-        PanelData data;
         readSunValues(data);
         readServoPos(data);
         readPanelPower(data);
         data.transmit();
     }
-    delay(10);
+    delay(40);
 }
 
 void readSunValues(PanelData &data)
 {
     topLeftRaw = analogRead(A3);
     topRightRaw = analogRead(A2);
-    bottomLeftRaw = analogRead(A0);
+    bottomLeftRaw = analogRead(A0); 
     bottomRightRaw = analogRead(A1);
 
     data.photoBL = bottomLeftRaw;

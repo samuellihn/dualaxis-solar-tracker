@@ -37,7 +37,7 @@ def get_panel_data() -> Union[PanelData, None]:
 #     print(frame.tilt, frame.pan)
 #     time.sleep(0.01)
 
-f = open("basic-data-3.txt", "w")
+f = open("data/basic-data-3.txt", "w")
 
 K = 45
 for theta in range(-K, K + 1, 5):

@@ -8,6 +8,9 @@ import numpy as np
 import random
 import serial
 import time
+import datetime
+
+from datetime import datetime
 
 # initialize serial port
 ser = serial.Serial()
@@ -29,8 +32,11 @@ timestamps = []
 voltages = []  # store relative frequency here
 currents = []
 powers = []
+input("to start?")
 
-
+csv_file = open("../data/tracker_2000ms_96s.csv", "w+", newline="")
+csv_writer = csv.writer(csv_file)
+csv_writer.writerow(["Timestamp", "Servo Voltage", "Servo Current", "Servo Power"])
 
 # This function is called periodically from FuncAnimation
 def animate(i, timestamp, voltage, current, power):
@@ -39,7 +45,10 @@ def animate(i, timestamp, voltage, current, power):
         line = ser.readline()  # ascii
         line = line.decode("utf8")
         line_as_list = line.split(',')
-        v, i, p = map(float, line_as_list)
+        try:
+            v, i, p = map(float, line_as_list)
+        except:
+            continue
         t = time.time() - initial_time
 
 
@@ -48,6 +57,8 @@ def animate(i, timestamp, voltage, current, power):
         current.append(i)
         power.append(p)
         timestamp.append(t)
+        csv_writer.writerow([datetime.utcnow(), v, i, p])
+
 
     # # Limit x and y lists to 20 items
     voltage = voltage[-1000:]
@@ -69,10 +80,11 @@ def animate(i, timestamp, voltage, current, power):
 
 # Set up plot to call animate() function periodically
 ser.flushInput()
-ani = animation.FuncAnimation(fig, animate, fargs=(timestamps, voltages, currents, powers), interval=10)
+ani = animation.FuncAnimation(fig, animate, fargs=(timestamps, voltages, currents, powers), interval=40)
 # Format plot
 plt.setp(ax1.get_xticklabels(), visible=False)
 plt.setp(ax2.get_xticklabels(), rotation=45.0)
 plt.subplots_adjust(bottom=0.30)
 plt.axis([0, None, None, None])  # Use for arbitrary number of trials
 plt.show()
+csv_file.close()

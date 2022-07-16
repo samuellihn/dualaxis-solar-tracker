@@ -6,7 +6,6 @@ class ServoPos:
         self.pan = int(pan)
         self.tilt = int(tilt)
 
-
     def serialize(self):
         return bytes(f"{round((self.pan + 135) / 1.5)},{round((self.tilt + 135) / 1.5)}\n", "utf8")
 
@@ -40,3 +39,10 @@ class PanelData:
         self.tilt *= 1.5
         self.pan -= 135
         self.tilt -= 135
+
+    def to_csv_row(self):
+        return [
+            self.panel_v, self.panel_i, self.panel_p,
+            self.photo_tr, self.photo_tl, self.photo_br, self.photo_bl,
+            self.pan, self.tilt
+        ]
