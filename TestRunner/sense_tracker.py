@@ -7,7 +7,7 @@ from message import *
 
 panelSerial = serial.Serial()
 panelSerial.port = 'COM7'
-panelSerial.baudrate = 115200
+panelSerial.baudrate = 38400
 panelSerial.timeout = 10
 panelSerial.open()
 
@@ -58,7 +58,9 @@ while True:
     # Calculate differentials
     y_diff = (avg_top - avg_bot)
     x_diff = (avg_right - avg_left)
-    total_ldr = sum([avg_top, avg_bot, avg_right, avg_left])
+
+    print(y_diff)
+    print(x_diff)
 
     if y_diff > Y_THRESHOLD:
         if frame.tilt < Y_MAX:
