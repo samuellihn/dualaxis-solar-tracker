@@ -6,7 +6,7 @@
 
 This is the main repository for *Analysis of the Optimal Adjustment Frequency for a Dual-Axis Solar Tracker*, published in the Governor’s School of New Jersey Program in Engineering & Technology research journal.
 
-The full paper can be viewed here: _Link not yet available; check back soon._
+The full paper can be viewed [here](https://gset.rutgers.edu/publications/2022).
 
 Details for each submodule can be found in their respective directories.
 
